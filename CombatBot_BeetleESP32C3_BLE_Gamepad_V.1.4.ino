@@ -13,7 +13,7 @@ String version = "1.4";
   FEATURES:
   *****
   - High accuracy tank steering with center brake.
-  - Channel mixing between ch1(fwd/bwd) and ch2(left/right) channels.
+  - Channel mixing between fwd/bwd and left/right channels.
   - Drive motor rotation inverting and trim.
   - Supports DC motors using HR8833 or TB6612FNG DC motor driver or Brushless motors using ESC's for driving.
   - Support for single servo or brushless motor controlled by ESC as weapon motor.
@@ -231,11 +231,14 @@ String version = "1.4";
 // Rotation
 bool INV_MOT_L = false;                       // Invert left drive motor rotation
 bool INV_MOT_R = false;                       // Invert right drive motor rotation
+// Speed
+byte SPD_Y = 100;                             // Fwd/bwd (axelRY) speed multiplier // 0 - 100%
+byte SPD_X = 100;                             // Left/right (axelRX) speed multiplier // 0 - 100%
 // Trim
 byte TRIM_L = 100;                            // Left motors rotation value for trim // 0 = zero rotation, 100 = full rotation
 byte TRIM_R = 100;                            // Right motors rotation value for trim // 0 = zero rotation, 100 = full rotation
 // Channel mixing
-bool CHMIX = true;                            // Defines are fwd/bwd(ch1) and left/right(ch2) channel signals mixed together
+bool CHMIX = true;                            // Defines are fwd/bwd (axelRY) and left/right (axelRX) channel signals mixed together
 // ----------------- Weapon ESC / Servo ----------------
 bool USE_BIDIR = false;                       // Use BiDirectional servo/weapon signal // true = signal width is from -100 to 100, false = 0 to 100
 bool USE_ESC = false;                         // Is script using ESC or servo // true = For spinners, signal is sent continuously to ESC. false = For flippers and grabbers, signal is sent to servo only when value has been changed.
@@ -403,6 +406,8 @@ void checkPresetErrors() {
   if (useTelemetry && cells == 0) errors += "Warning: Battery voltage not recognized!\n";
   // Low voltage guard - telemetry disabled
   if (!useTelemetry && useLowVoltageGuard) errors += "Warning: Telemetry has to be enabled when using Low voltage guard!\n";
+  // Wrong speed parameter
+  if (SPD_Y <= 0 || SPD_Y > 100 || SPD_X <= 0 || SPD_X > 100) errors += "Warning: Speed value out of range!\n";
   // Wrong weapon parameter
   if ((USE_ESC && !USE_BIDIR && SRV_ANG_IDLE != 0) || (USE_ESC && USE_BIDIR && (SRV_ANG_IDLE == 0 || SRV_ANG_IDLE == 180))) errors += "Warning: Incorrect weapon idle angle!\n";
   // Servo value out of range
@@ -915,9 +920,13 @@ void processGamepad(ControllerPtr ctl) {
     if (!invert && ctl->axisRY()) axelRY = ctl->axisRY();
     else if (invert && ctl->axisRY()) axelRY = -(ctl->axisRY());
     if (ctl->axisRX()) axelRX = ctl->axisRX();
-    if (abs(ctl->axisRY()) <= stickOffset) axelRY = 0; // If in offset area set to zero
+    // Set speed multiplier
+    axelRY = round(axelRY * ((float)SPD_Y / 100));
+    axelRX = round(axelRX * ((float)SPD_X / 100));
+    // If in offset area set to zero
+    if (abs(ctl->axisRY()) <= stickOffset) axelRY = 0;
     if (abs(ctl->axisRX()) <= stickOffset) axelRX = 0;
-    // Mix driving channels & invert ch1 because of controller fwd is negative not positive
+    // Mix driving channels & invert axelRY because of controller fwd is negative not positive
     int throttleLeft; // Left motor speed
     int throttleRight; // Right motor speed
     if (CHMIX) {
@@ -935,13 +944,6 @@ void processGamepad(ControllerPtr ctl) {
     // Constrain 
     throttleLeft = constrain(throttleLeft, -500, 500 ); 
     throttleRight = constrain(throttleRight, -500, 500 );
-    // Backwards turning direction fix // Originally inverted turning direction is "fixed" by changing motor speeds between left and right motors // Normally inverted like in original script: https://youtu.be/Bx0y1qyLHQ4?si=SiRo3NRRyVRyjbs3
-    if (CHMIX && axelRY > 0) { // If your controllers fwd is negative not positive this should be: axelRY < 0
-      int tempL = throttleLeft;
-      int tempR = throttleRight;
-      throttleLeft = tempR;
-      throttleRight = tempL;
-    }
     // Trim
     throttleLeft = round(throttleLeft * ((float)TRIM_L / 100));
     throttleRight = round(throttleRight * ((float)TRIM_R / 100));
