@@ -62,14 +62,16 @@ String version = "1.4";
   *****
   HOW TO INSTALL:
   *****
-  1. Read instructions.
-  2. Install Arduino IDE from https://www.arduino.cc/en/software. It is the main program what you will use to manage this script and connection to ESP.
-  3. Install board manager by following guide in bluepad32 wiki: https://github.com/ricardoquesada/bluepad32
-  4. Install proper Arduino library versions mentioned below.
-  5. Set up proper pins and presets from script.
-  6. Set up board manager presets from toolbars "Tools" dropdown and connect board.
-  7. Upload script without battery or weapon being attached.
-  8. Connect controller and have fun.
+  1. Installing Arduino IDE, Board manager and libraries:
+    1.1. Install Arduino IDE from https://www.arduino.cc/en/software. It is the main program what you will use to manage this script and connection to ESP.
+    1.2. Install board manager by following guide in bluepad32 wiki: https://github.com/ricardoquesada/bluepad32
+    1.3. Install proper Arduino library versions mentioned below.
+  2. Installing script:
+    2.1. Download script from Githubs button: "Code" > Download Zip and unzip it.
+    2.2. Set up pins and presets from script.
+    2.3. Set up board manager presets as mentioned below.
+    2.4. Upload script as mentioned below.
+  3. Connect and have fun.
       
   *****
   ARDUINO IDE BOARD MANAGER & LIBRARIES:
