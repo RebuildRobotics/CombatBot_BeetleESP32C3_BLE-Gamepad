@@ -848,12 +848,10 @@ void processGamepad(ControllerPtr ctl) {
       if (abs(srvAng) <= stickOffset) srvAng = 0;
       if (USE_BIDIR) {
         srvAng = map(srvAng, 511, -511, SRV_ANG_MIN, SRV_ANG_MAX);
-        if (SRV_ANG_IDLE < SRV_ANG_MAX) srvAng = constrain(srvAng, SRV_ANG_MIN, SRV_ANG_MAX);
-        else srvAng = constrain(srvAng, SRV_ANG_MAX, SRV_ANG_MIN);
+        srvAng = constrain(srvAng, (SRV_ANG_MIN < SRV_ANG_MAX) ? SRV_ANG_MIN : SRV_ANG_MAX, (SRV_ANG_MIN < SRV_ANG_MAX) ? SRV_ANG_MAX : SRV_ANG_MIN);
       } else {
         srvAng = map(srvAng, 0, -511, SRV_ANG_IDLE, SRV_ANG_MAX);
-        if (SRV_ANG_IDLE < SRV_ANG_MAX) srvAng = constrain(srvAng, SRV_ANG_IDLE, SRV_ANG_MAX);
-        else srvAng = constrain(srvAng, SRV_ANG_MAX, SRV_ANG_IDLE);
+        srvAng = constrain(srvAng, (SRV_ANG_IDLE < SRV_ANG_MAX) ? SRV_ANG_IDLE : SRV_ANG_MAX, (SRV_ANG_IDLE < SRV_ANG_MAX) ? SRV_ANG_MAX : SRV_ANG_IDLE);
       }
       setWeaponAngle(srvAng);
     }    
