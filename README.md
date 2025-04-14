@@ -11,7 +11,7 @@
   FEATURES:
   *****
   - High accuracy tank steering with center brake.
-  - Channel mixing between ch1(fwd/bwd) and ch2(left/right) channels.
+  - Channel mixing between fwd/bwd and left/right channels.
   - Drive motor rotation inverting and trim.
   - Supports DC motors using HR8833 or TB6612FNG DC motor driver or Brushless motors using ESC's for driving.
   - Support for single servo or brushless motor controlled by ESC as weapon motor.
@@ -60,14 +60,16 @@
   *****
   HOW TO INSTALL:
   *****
-  1. Read instructions.
-  2. Install Arduino IDE from https://www.arduino.cc/en/software. It is the main program what you will use to manage this script and connection to ESP.
-  3. Install board manager by following guide in bluepad32 wiki: https://github.com/ricardoquesada/bluepad32
-  4. Install proper Arduino library versions mentioned below.
-  5. Set up proper pins and presets from script.
-  6. Set up board manager presets from toolbars "Tools" dropdown and connect board.
-  7. Upload script without battery or weapon being attached.
-  8. Connect controller and have fun.
+  1. Installing Arduino IDE, Board manager and libraries:
+    1.1. Install Arduino IDE from https://www.arduino.cc/en/software. It is the main program what you will use to manage this script and connection to ESP.
+    1.2. Install board manager by following guide in bluepad32 wiki: https://github.com/ricardoquesada/bluepad32
+    1.3. Install proper Arduino library versions mentioned below.
+  2. Installing script:
+    2.1. Download script from Githubs button: "Code" > Download Zip and unzip it.
+    2.2. Set up pins and presets from script.
+    2.3. Set up board manager presets as mentioned below.
+    2.4. Upload script as mentioned below.
+  3. Connect and have fun.
       
   *****
   ARDUINO IDE BOARD MANAGER & LIBRARIES:
@@ -120,20 +122,20 @@
   - Bluetooth pairing in Stadia gamepad is done by turning controller on and pressing google button + Y button 2 seconds until light turns orange and after that static white when connected to ESP.
     After pairing device once controller will automaticly reconnect to bot when both are turned on (Atleast with Stadia it seems to take a forever or never).
   - Controls:
-      Signal lock off (Basic controls):
-      - Stadia but. + Y 2s  =   Pair device (Light turns orange and after that solid white when connected.)
-      - A                   =   AI on/off
-      - X                   =   Invert drive on/off
-      - Right bumper        =   Signal lock on/off
-      - Left bumper         =   Weapon on/off
-      - Pad up/down         =   Weapon
-      - Left stick          =   Weapon
-      - Right stick         =   Driving
-      - Y + Pad left/right  =   Trim
-      Signal lock on (Programming mode):
-      - Y + B               =   Channel mixing on/off
-      - Y + A               =   Add connected gamepads bluetooth address to allowList
-      - Y + Menu            =   Toggles activate / disable + clear allowList // If more than one pads are connected use this only once from any of the them.
+      - Signal lock off (Basic controls):
+        - Stadia but. + Y 2s  =   Pair device (Light turns orange and after that solid white when connected.)
+        - A                   =   AI on/off
+        - X                   =   Invert drive on/off
+        - Right bumper        =   Signal lock on/off
+        - Left bumper         =   Weapon on/off
+        - Pad up/down         =   Weapon
+        - Left stick          =   Weapon
+        - Right stick         =   Driving
+        - Y + Pad left/right  =   Trim
+      - Signal lock on (Programming mode):
+        - Y + B               =   Channel mixing on/off
+        - Y + A               =   Add connected gamepads bluetooth address to allowList
+        - Y + Menu            =   Toggles activate / disable + clear allowList // If more than one pads are connected use this only once from any of the them.
   - Haptic confirmations:
     - Left side             =   Weapon on/off button or weapon pad pressed
     - Left side, short      =   Trim button pressed from left pad
