@@ -112,7 +112,7 @@ String version = "1.4";
   COMMUNICATION:
   *****
   - Script uses 2,4GHz Bluetooth Low Energy (BLE) to communicate with gamepad.
-  - axisRY, axisRX and axisY values are in scale of -511~511, 0 is stop. Weapon pad is 10 steps of +/-18 (=180deg). Buttons On/Off. axisRY and axisRX Signals are converted to PWM value scale 0~255. Negative numbers are absoluted.
+  - axisRY, axisRX and axisY values are in scale of -511 to 511, 0 is stop. Weapon pad is 10 steps of +/-18 (=180deg). Buttons On/Off. axisRY and axisRX Signals are converted to PWM value scale 0 to 255. Negative numbers are absoluted.
   
   *****
   CONTROLLER:
@@ -124,20 +124,20 @@ String version = "1.4";
   - Bluetooth pairing in Stadia gamepad is done by turning controller on and pressing google button + Y button 2 seconds until light turns orange and after that static white when connected to ESP.
     After pairing device once controller will automaticly reconnect to bot when both are turned on (Atleast with Stadia it seems to take a forever or never).
   - Controls:
-      Signal lock off (Basic controls):
-      - Stadia but. + Y 2s  =   Pair device (Light turns orange and after that solid white when connected.)
-      - A                   =   AI on/off
-      - X                   =   Invert drive on/off
-      - Right bumper        =   Signal lock on/off
-      - Left bumper         =   Weapon on/off
-      - Pad up/down         =   Weapon
-      - Left stick          =   Weapon
-      - Right stick         =   Driving
-      - Y + Pad left/right  =   Trim
-      Signal lock on (Programming mode):
-      - Y + B               =   Channel mixing on/off
-      - Y + A               =   Add connected gamepads bluetooth address to allowList
-      - Y + Menu            =   Toggles activate / disable + clear allowList // If more than one pads are connected use this only once from any of the them.
+      - Signal lock off (Basic controls):
+        - Stadia but. + Y 2s  =   Pair device (Light turns orange and after that solid white when connected.)
+        - A                   =   AI on/off
+        - X                   =   Invert drive on/off
+        - Right bumper        =   Signal lock on/off
+        - Left bumper         =   Weapon on/off
+        - Pad up/down         =   Weapon
+        - Left stick          =   Weapon
+        - Right stick         =   Driving
+        - Y + Pad left/right  =   Trim
+      - Signal lock on (Programming mode):
+        - Y + B               =   Channel mixing on/off
+        - Y + A               =   Add connected gamepads bluetooth address to allowList
+        - Y + Menu            =   Toggles activate / disable + clear allowList // If more than one pads are connected use this only once from any of the them.
   - Haptic confirmations:
     - Left side             =   Weapon on/off button or weapon pad pressed
     - Left side, short      =   Trim button pressed from left pad
