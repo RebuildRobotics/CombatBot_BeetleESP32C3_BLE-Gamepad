@@ -108,7 +108,7 @@
   COMMUNICATION:
   *****
   - Script uses 2,4GHz Bluetooth Low Energy (BLE) to communicate with gamepad.
-  - axisRY, axisRX and axisY values are in scale of -511~511, 0 is stop. Weapon pad is 10 steps of +/-18 (=180deg). Buttons On/Off. axisRY and axisRX Signals are converted to PWM value scale 0~255. Negative numbers are absoluted.
+  - axisRY, axisRX and axisY values are in scale of -511 to 511, 0 is stop. Weapon pad is 10 steps of +/-18 (=180deg). Buttons On/Off. axisRY and axisRX Signals are converted to PWM value scale 0 to 255. Negative numbers are absoluted.
   
   *****
   CONTROLLER:
