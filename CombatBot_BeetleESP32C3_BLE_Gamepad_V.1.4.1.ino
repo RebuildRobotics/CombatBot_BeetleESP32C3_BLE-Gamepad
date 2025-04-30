@@ -1356,7 +1356,7 @@ bool isDataUpdated()
   }
 }
 
-resetAllowList()
+void resetAllowList()
 {
   uni_bt_allowlist_remove_all();
   allowList = false;
