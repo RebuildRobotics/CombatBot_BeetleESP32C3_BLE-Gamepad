@@ -60,14 +60,14 @@
   HOW TO INSTALL:
   *****
   1. Installing Arduino IDE, Board manager and libraries:
-    1. Install Arduino IDE from https://www.arduino.cc/en/software. It is the main program what you will use to manage this script and connection to ESP.
-    2. Install board manager by following guide in bluepad32 wiki: https://github.com/ricardoquesada/bluepad32
-    3. Install proper Arduino library versions mentioned below.
+      1. Install Arduino IDE from https://www.arduino.cc/en/software. It is the main program what you will use to manage this script and connection to ESP.
+      2. Install board manager by following guide in bluepad32 wiki: https://github.com/ricardoquesada/bluepad32
+      3. Install proper Arduino library versions mentioned below.
   2. Installing script:
-    1. Download script from Githubs button: "Code" > Download Zip and unzip it.
-    2. Set up pins and presets from script.
-    3. Set up board manager presets as mentioned below.
-    4. Upload script as mentioned below.
+      1. Download script from Githubs button: "Code" > Download Zip and unzip it.
+      2. Set up pins and presets from script.
+      3. Set up board manager presets as mentioned below.
+      4. Upload script as mentioned below.
   3. Connect and have fun.
       
   *****
