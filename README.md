@@ -16,9 +16,8 @@
   - Supports DC motors using HR8833 or TB6612FNG DC motor driver or Brushless motors using ESC's for driving.
   - Support for single servo or brushless motor controlled by ESC as weapon motor.
   - 1-2S LiPo battery voltage monitoring.
-  - Low voltage guard (Protects battery by activating failsafe when battery is running low while keeping controller connected to bot. Failsafe will be deactivated when voltage becomes higher than shutdown level).
-    (If facing problems with voltage drops and guard is stopping motors with close to charged battery try to use quality connectors like BT2.0 or XT-30 not JST's, proper cable sizes and possible capacitor near weapons power drain.)
-  - Failsafe (Stops all functions when disconnected from controller. Same function is used with low voltage guard).
+  - Low voltage guard.
+  - Failsafe & ouf of range protection.
   - Signal safety (Bot won't accept any signals until signal safety switch is pressed from controller).
   - Customizable AI slot (ch4, void runAI).
   - Buildin automatic support in Custom AI slot for flippers using DFRobot VL6180X ToF Distance Ranging Sensor.
@@ -61,14 +60,14 @@
   HOW TO INSTALL:
   *****
   1. Installing Arduino IDE, Board manager and libraries:
-    1.1. Install Arduino IDE from https://www.arduino.cc/en/software. It is the main program what you will use to manage this script and connection to ESP.
-    1.2. Install board manager by following guide in bluepad32 wiki: https://github.com/ricardoquesada/bluepad32
-    1.3. Install proper Arduino library versions mentioned below.
+    1. Install Arduino IDE from https://www.arduino.cc/en/software. It is the main program what you will use to manage this script and connection to ESP.
+    2. Install board manager by following guide in bluepad32 wiki: https://github.com/ricardoquesada/bluepad32
+    3. Install proper Arduino library versions mentioned below.
   2. Installing script:
-    2.1. Download script from Githubs button: "Code" > Download Zip and unzip it.
-    2.2. Set up pins and presets from script.
-    2.3. Set up board manager presets as mentioned below.
-    2.4. Upload script as mentioned below.
+    1. Download script from Githubs button: "Code" > Download Zip and unzip it.
+    2. Set up pins and presets from script.
+    3. Set up board manager presets as mentioned below.
+    4. Upload script as mentioned below.
   3. Connect and have fun.
       
   *****
@@ -93,7 +92,7 @@
   *****
   PRESETS:
   *****
-  - Basic bot presets can be changed from below.
+  - Basic bot presets can be changed from script.
   - Channelmix and trim can be set from controller.
   - Presets will be saved into Eeprom when controller is disconnected from bot.
   - Presets saved in Eeprom will be erased in upload if "Tools > Erase All Flash Before Sketch Upload" is enabled.
@@ -111,19 +110,32 @@
   *****
   - Script uses 2,4GHz Bluetooth Low Energy (BLE) to communicate with gamepad.
   - axisRY, axisRX and axisY values are in scale of -511 to 511, 0 is stop. Weapon pad is 10 steps of +/-18 (=180deg). Buttons On/Off. axisRY and axisRX Signals are converted to PWM value scale 0 to 255. Negative numbers are absoluted.
+
+  *****
+  FAILSAFE & OUT OF RANGE:
+  *****
+  - Script includes failsafe and out of range functions to prevent up accidents and bot running away.
+  - Functions stops bot from using AI, weapon and motors when controllers signal is lost or bot is out of range.
+  - Using failsafe is highly recommended in robotics and it's required in combat robotics. Same kind of functions are used in normal RC transmitters.
+  - Failsafe is deactivated when controller is connected into bot, so if you go out of range you have to reconnect into bot for to controlling it.
+  - Remember to set pins correctly, if they are not set right script and failsafe won't work properly!
+
+  *****
+  LOW VOLTAGE GUARD:
+  *****
+ - Protects battery by activating failsafe when battery is running low while keeping controller connected to bot.
+ - Failsafe will be deactivated when voltage becomes higher than shutdown level.
+ - If facing problems with voltage drops and guard is stopping motors with close to charged battery try to use quality connectors like BT2.0 or XT-30 (not JST), proper cable sizes and possible capacitor near weapons power drain.
   
   *****
   CONTROLLER:
   *****
   - Script uses Bluepad32 library/board manager to handle bluetooth connection to controller.
-  - Developed and tested with Googles Stadia gamepad but it should work with following gamepads supporting BLE (Test with precaution!):
-    Xbox Wireless, Xbox Adaptive, Steam, Stadia and Android. See more from: https://github.com/ricardoquesada/bluepad32/blob/main/docs/supported_gamepads.md
+  - Developed and tested with Google Stadia and XBox 360 gamepads supporting BLE. See more from: https://github.com/ricardoquesada/bluepad32/blob/main/docs/supported_gamepads.md
   - Use DEBUG to retrieve connected gamepads bluetooth address into serial monitor if needed.
-  - Bluetooth pairing in Stadia gamepad is done by turning controller on and pressing google button + Y button 2 seconds until light turns orange and after that static white when connected to ESP.
-    After pairing device once controller will automaticly reconnect to bot when both are turned on (Atleast with Stadia it seems to take a forever or never).
+  - Bluetooth pairing instructions can be found from bluepad32 pages. After once pairing device controller should automaticly reconnect to bot.
   - Controls:
       - Signal lock off (Basic controls):
-        - Stadia but. + Y 2s  =   Pair device (Light turns orange and after that solid white when connected.)
         - A                   =   AI on/off
         - X                   =   Invert drive on/off
         - Right bumper        =   Signal lock on/off
@@ -134,8 +146,9 @@
         - Y + Pad left/right  =   Trim
       - Signal lock on (Programming mode):
         - Y + B               =   Channel mixing on/off
-        - Y + A               =   Add connected gamepads bluetooth address to allowList
-        - Y + Menu            =   Toggles activate / disable + clear allowList // If more than one pads are connected use this only once from any of the them.
+        - Y + A               =   Add connected gamepads bluetooth address to allowList // Vibrates when added to list
+        - Y + X               =   Clear gamepads from allowList // Vibrates when cleared
+        - Y + Menu            =   Activate / disable allowList // Vibrates when enabled // If more than one pads are connected use this only once from any of the them
   - Haptic confirmations:
     - Left side             =   Weapon on/off button or weapon pad pressed
     - Left side, short      =   Trim button pressed from left pad
@@ -151,13 +164,13 @@
   - Allowlist allows only gamepads added into it to connect. It is crucial for security because it prevents unwanted connections.
   - Connected controllers can be added to list or removed from it with buttons above in controls list.
   - List will be reseted when reuploading script into ESP and "Erase All Flash Before Sketch Upload" is enabled from tools.
-    If having problems and list is not reseted from controller or from script upload go to line: "// Bluepad bluetooth allowlist" in setup() and make changes mentioned and reupload script.
+  - List can be hard reseted by grounding GPIO 2 shortly when esp has power turned on.
   - More from allowlist:
     https://bluepad32.readthedocs.io/en/latest/FAQ/
     https://github.com/ricardoquesada/bluepad32/blob/main/src/components/bluepad32/include/bt/uni_bt_allowlist.h
 
   ****************************************
-  Bluepad32 is separate project from this program and has nothing to do with this project except this script is using their board manager for gamepads.
+  Bluepad32 is separate project and has nothing to do with this project except this script is using their board manager for gamepads.
   If you have need to support this project remember them before me, because without them this project wouldn't been achieved.
   ****************************************
 
@@ -165,10 +178,6 @@
   SAFETY NOTICE:
   *****
   - Combat robotics is fun and extremely educating but dangerous hobby, always think safety first!
-  - Script includes failsafe function to prevent up accidents. Function shuts down drive- and weapon motors when controllers signal is lost.
-    This is same kind of option than good RC receivers have and it's required in combat robotics.
-  - Script is programmed to accept controller signals only when it is approved from controllers Signal lock button.
-  - Remember to set pins correctly, if they are not set right script and failsafe won't work properly!
   - Do not keep battery connected at the same time when USB is connected into powersource!
   - Accidentally motor spins will happen when ESP is powered, script is uploading or wrong board or library version is installed!
     Motor spins at startup can be prevented by using pull-up/pull down resistors or our designed ESP32-C3 CombatBot Expansion Board and tested IDE library versions.
@@ -178,4 +187,4 @@
     It might cause serious injuries because board functionalities are changing. Future updates to this script includes fresher and tested information from later versions.
   - Remember always check that you have correct versions installed before updating script into board.
   - Modify script only if you know what you are doing!
-  - Script has been tested only in close range at Combat arenas. When driving outside use precaution.
+  - Script has been tested only in close range at Combat arenas and inside. When driving outside use precaution.
