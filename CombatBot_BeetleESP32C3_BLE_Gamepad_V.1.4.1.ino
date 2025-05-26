@@ -1359,6 +1359,7 @@ bool isDataUpdated()
 void resetAllowList()
 {
   uni_bt_allowlist_remove_all();
+  BP32.forgetBluetoothKeys();
   allowList = false;
   uni_bt_allowlist_set_enabled(allowList);
   EEPROM_Save();
