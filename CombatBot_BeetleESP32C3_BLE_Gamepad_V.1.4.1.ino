@@ -53,9 +53,9 @@ String version = "1.4.1";
   *****
   - Driving:
     - DC motors:          2 x PWM + 2 digital outputs
-    - Brushless motors:   2 x PPM outputs
-  - Weapon ESC or servo:  1 x PPM output
-  - PPM signals are generated with servo library.
+    - Brushless motors:   2 x PWM outputs
+  - Weapon ESC or servo:  1 x PWM output
+  - Weapon PWM signals are generated with servo library.
   - If using brushless ESC's they has to be configured separately!
 
   *****
@@ -273,7 +273,7 @@ byte SRV_ANG_MIN = 0;                         // Min angle  // Used only in BiDi
 #define invWepStick                 false     // Invert weapon joystick when using BiDir signal
 #define stickOffset                 50        // Joystick offset area
 /******************************************************/
-/* ----------------- PPM PARAMETERS ----------------- */
+/* ----------------- PWM PARAMETERS ----------------- */
 /******************************************************/
 // Motordrivers
 #if defined(BRUSHL)
@@ -1187,7 +1187,7 @@ void processGamepad(ControllerPtr ctl)
       throttleLeft = constrain(throttleLeft, -255, 255);
       throttleRight = constrain(throttleRight, -255, 255);
     #endif
-    // Convert to PPM & invert rotation
+    // Convert to Angle & invert rotation
     #if defined(BRUSHL)
       throttleLeft = (INV_MOT_L) ? map(throttleLeft, -500, 500, 180, 0) : map(throttleLeft, -500, 500, 0, 180);
       throttleRight = (INV_MOT_R) ? map(throttleRight, -500, 500, 0, 180) : map(throttleRight, -500, 500, 180, 0);
