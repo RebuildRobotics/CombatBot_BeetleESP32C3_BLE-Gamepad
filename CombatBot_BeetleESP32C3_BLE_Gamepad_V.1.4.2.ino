@@ -136,7 +136,7 @@ String version = "1.4.2";
   - Developed and tested with Google Stadia and XBox 360 gamepads supporting BLE. See more from: https://github.com/ricardoquesada/bluepad32/blob/main/docs/supported_gamepads.md
   - Use DEBUG to retrieve connected gamepads bluetooth address into serial monitor if needed.
   - Bluetooth pairing instructions can be found from bluepad32 pages. After once pairing device controller should automaticly reconnect to bot.
-  - Controls:
+  - Controls (http://rebuildrobotics.fi/ControllerKeymapping.pdf / http://rebuildrobotics.fi/ControllerKeymapping.png):
       - Signal lock off (Basic controls):
         - A                   =   AI on/off
         - X                   =   Invert drive on/off
