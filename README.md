@@ -160,20 +160,43 @@
   - Notice: If no other weapon control haven't been used before pressing pad then first time pressing up/down calibrates weapon angle to idle.
   
   *****
-  BLUEPAD32 ALLOWLIST
+  ALLOWLIST:
   *****
   - Allowlist allows only gamepads added into it to connect. It is crucial for security because it prevents unwanted connections.
   - Connected controllers can be added to list or removed from it with buttons above in controls list.
   - List will be reseted when reuploading script into ESP and "Erase All Flash Before Sketch Upload" is enabled from tools.
   - List can be hard reseted by grounding GPIO 2 shortly when esp has power turned on.
-  - More from allowlist:
-    https://bluepad32.readthedocs.io/en/latest/FAQ/
-    https://github.com/ricardoquesada/bluepad32/blob/main/src/components/bluepad32/include/bt/uni_bt_allowlist.h
+  
+    *****
+    Guide:  
+    *****
+    Always make adjustments before entering public areas for to avoid unwanted connections and injuries!
 
-  ****************************************
-  Bluepad32 is separate project and has nothing to do with this project except this script is using their board manager for gamepads.
-  If you have need to support this project remember them before me, because without them this project wouldn't been achieved.
-  ****************************************
+    Adding controller into bots allowList:
+    1. Connect controller into bot.
+    2. Make sure that Signal lock is ON.
+    3. Press Y + A (Controller vibrates).
+    4. Press Y + Menu (Controller vibrates).
+    5. Power off controller (Bot saves controller into memory at disconnect).
+    6. Wait that esp blue light is blinking again and your done..
+    7. Now you can test is list working by shutting down bot and restarting bot and controller. Controller should reconnect into bot and other controllers won't.
+
+    Removing controller from list:
+    1. Connect controller into bot.
+    2. Make sure that Signal lock is ON.
+    3. Press Y + X (Controller vibrates).
+    4. Power off controller (Bot saves controller into memory at disconnect).
+    5. Wait that esp blue light is blinking again and your done.
+    
+    Problems:
+    - If you are totally locked out from list hard reset list with jumper cable.
+
+    AllowList is part of Bluepad32 library which is separate project and has nothing to do with this project except this script is using their board manager for gamepads.
+    Without them this project wouldn't been achieved.
+
+    More from allowlist:
+    - https://bluepad32.readthedocs.io/en/latest/FAQ/
+    - https://github.com/ricardoquesada/bluepad32/blob/main/src/components/bluepad32/include/bt/uni_bt_allowlist.h
 
   *****
   SAFETY NOTICE:
