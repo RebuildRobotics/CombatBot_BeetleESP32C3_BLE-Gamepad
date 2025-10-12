@@ -195,8 +195,8 @@ String version = "1.4.2";
   *****
   SUPPORTING PROJECTS:
   *****
-  You can sponsor this and other projects without this couldn't been done from links below.
-  - Support me: Coming some day
+  We do not search any financial benefit from scripts and apps made, we just want to offer platforms to help you to get started with robotics and learn how things are made.
+  You are free to support other projects which are used in our programs and have.
   - Bluepad32, Ricardo Quesada: https://github.com/ricardoquesada/bluepad32
   
   *****
