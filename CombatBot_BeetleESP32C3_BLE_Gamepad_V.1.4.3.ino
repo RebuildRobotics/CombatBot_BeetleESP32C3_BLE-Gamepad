@@ -904,11 +904,22 @@ void failsafe(bool active)
 
 void runWatchdog()
 {
-  if ((ch1 != 0 || ch2 != 0 || AIActive || weaponActive) && !failsafeActive && (millis() - lastUpdate) > timeoutDelay)
+  /*
+  Watchdog is a function checking are packets from transmitter received inside delay. If new packets haven't been received inside delay watchdog will activate robots failsafe and stops robots motors.
+  This kind of situation might happen when transmitting distance or strength is poor.
+  
+  The problem is that game controllers or bluepad32 don't have or don't at least have any proper "ping" option and controllers buttons are not left in on/off position after pressing them.
+  This means we can't get any proper information for watchdog to work 100%. At this moment watchdog works only with driving channels.
+  
+  Should be, but can't win all: if ((ch1 != 0 || ch2 != 0 || AIActive || weaponActive) && !failsafeActive && (millis() - lastUpdate) > timeoutDelay)
+  */
+  if ((ch1 != 0 || ch2 != 0) && !failsafeActive && (millis() - lastUpdate) > timeoutDelay)
   {
     failsafe(true);
+    /*
     for (int i = 0; i < BP32_MAX_GAMEPADS; i++)
       myControllers[i]->disconnect();
+    */
     if (DEBUG) Serial.println("[!] No data received");
   }
 }
