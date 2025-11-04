@@ -905,8 +905,8 @@ void failsafe(bool active)
 void runWatchdog()
 {
   /*
-  Watchdog is a function checking are packets from transmitter received inside delay. If new packets haven't been received inside delay watchdog will activate robots failsafe and stops robots motors.
-  This kind of situation might happen when transmitting distance or strength is poor.
+  Watchdog is a function checking are packets from transmitter received inside delay. If new packets haven't been received on time watchdog will activate robots failsafe and stops robots motors.
+  This kind of situation might happen when transmitting distance or strength is poor or transmitter is turned off.
   
   The problem is that game controllers or bluepad32 don't have or don't at least have any proper "ping" option and controllers buttons are not left in on/off position after pressing them.
   This means we can't get any proper information for watchdog to work 100%. At this moment watchdog works only with driving channels.
